@@ -39,12 +39,22 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/plants/by-user', async (req, res) => {
+           
+             const email = req.query.email;
+
+             const result = await plantsCollection.find({ email }).toArray();
+              res.send(result);
+        })
+
      app.get('/plants/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
             const result = await plantsCollection.findOne(query);
             res.send(result);
         })
+
+        
 
     app.post('/plants', async(req,res) =>{
       const newPlant = req.body;
