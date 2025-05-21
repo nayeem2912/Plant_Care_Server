@@ -47,6 +47,19 @@ async function run() {
               res.send(result);
         })
 
+          app.get("/plants/latest", async (req, res) => {
+            try {
+                const latestPlants = await plantsCollection.find()
+                    .sort({ createdAt: -1 }) 
+                    .limit(6)
+                    .toArray();
+                res.json(latestPlants);
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ success: false, message: "Server error" });
+            }
+        });
+
      app.get('/plants/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
