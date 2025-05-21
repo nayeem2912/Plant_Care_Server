@@ -29,6 +29,14 @@ async function run() {
   try {
    
     await client.connect();
+
+    const plantsCollection = client.db('plantDB').collection('plants');
+
+    app.post('/plants', async(req,res) =>{
+      const newPlant = req.body;
+        const result = await plantsCollection.insertOne(newPlant);
+            res.send(result);
+    })
    
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
@@ -41,7 +49,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req,res)=>{
-    res.send('mango server is getting hotter')
+    res.send('mango server is getting ready')
 })
 
 
