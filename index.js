@@ -63,6 +63,9 @@ async function run() {
             res.send(result);
         })
 
+       
+
+
         
 
     app.post('/plants', async(req,res) =>{
@@ -70,6 +73,21 @@ async function run() {
         const result = await plantsCollection.insertOne(newPlant);
             res.send(result);
     })
+
+     app.put('/plants/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updatedPlant = req.body;
+            const updatedDoc = {
+                $set: updatedPlant
+            }
+
+            
+              const result = await plantsCollection.updateOne(filter, updatedDoc, options);
+
+            res.send(result);
+        })
 
     app.delete('/plants/:id', async (req, res) => {
             const id = req.params.id;
