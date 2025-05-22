@@ -3,7 +3,11 @@
 This is the backend server for the **Plant Care** web application — a smart gardening and plant maintenance platform. The backend is built using Node.js, Express, and MongoDB, and is responsible for managing API routes, handling user requests, and storing plant-related data.
 
 ---
+**Live Website:**
+https://plant-care-cb6f6.web.app/
 
+
+---
 
 
 ## ⚙️ Technologies Used
@@ -17,5 +21,4 @@ This is the backend server for the **Plant Care** web application — a smart ga
 
 ---
 
-## 📁 Project Structure
 
