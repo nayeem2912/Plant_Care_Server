@@ -47,18 +47,14 @@ async function run() {
               res.send(result);
         })
 
-          app.get("/plants/latest", async (req, res) => {
-            try {
-                const latestPlants = await plantsCollection.find()
-                    .sort({ createdAt: -1 }) 
-                    .limit(6)
-                    .toArray();
-                res.json(latestPlants);
-            } catch (error) {
-                console.error(error);
-                res.status(500).json({ success: false, message: "Server error" });
-            }
-        });
+        
+         app.get("/plants/latest", async (req, res) => {
+      const latest = await plantsCollection.find()
+        .sort({ _id: -1 })
+        .limit(6)
+        .toArray();
+      res.send(latest);
+    });
 
      app.get('/plants/:id', async (req, res) => {
             const id = req.params.id;
@@ -74,6 +70,13 @@ async function run() {
         const result = await plantsCollection.insertOne(newPlant);
             res.send(result);
     })
+
+    app.delete('/plants/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await plantsCollection.deleteOne(query);
+            res.send(result);
+        })
    
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
