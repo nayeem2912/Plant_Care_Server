@@ -43,7 +43,6 @@ async function run() {
     app.get('/plants/by-user', async (req, res) => {
            
              const email = req.query.email;
-
              const result = await plantsCollection.find({ email }).toArray();
               res.send(result);
         })
@@ -52,7 +51,7 @@ async function run() {
          app.get("/plants/latest", async (req, res) => {
       const latest = await plantsCollection.find()
         .sort({ _id: -1 })
-        .limit(6)
+        .limit(10)
         .toArray();
       res.send(latest);
     });
