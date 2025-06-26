@@ -36,6 +36,14 @@ async function run() {
 
      app.get ('/plants', async(req, res) =>{
 
+      const {searchParams} = req.query;
+
+    let query = {}
+
+    if(searchParams){
+      query= {plantName: {$regex: searchParams, $options: "i"   }}
+    }
+
       const result = await plantsCollection.find().toArray();
       res.send(result)
     })
