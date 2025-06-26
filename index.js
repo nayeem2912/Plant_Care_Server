@@ -44,7 +44,7 @@ async function run() {
       query= {plantName: {$regex: searchParams, $options: "i"   }}
     }
 
-      const result = await plantsCollection.find().toArray();
+      const result = await plantsCollection.find(query).toArray();
       res.send(result)
     })
 
